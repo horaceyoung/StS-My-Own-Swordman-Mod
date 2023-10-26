@@ -1,0 +1,15 @@
+{
+  "${modID}:PowerID": {
+    "NAME": "Ultimate Power",
+    "DESCRIPTIONS": [
+      "You are Very Cool and Strong."
+    ]
+  },
+  "${modID}:AcupressureWeakPower": {
+    "NAME": "Acupressure - Weak",
+    "DESCRIPTIONS": [
+      "Decreases attack damage by #b",
+      ". Each stack decreases attack damage by 2."
+    ]
+  }
+}

@@ -3,7 +3,7 @@ package basicmod.cards;
 import basemod.BaseMod;
 import basemod.abstracts.CustomCard;
 import basemod.abstracts.DynamicVariable;
-import basicmod.BasicMod;
+import basicmod.MyOwnSwordmanMod;
 import basicmod.util.CardStats;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -25,7 +25,7 @@ import static basicmod.util.TextureLoader.getCardTextureString;
 public abstract class BaseCard extends CustomCard {
     final private static Map<String, DynamicVariable> customVars = new HashMap<>();
 
-    protected static String makeID(String name) { return BasicMod.makeID(name); }
+    protected static String makeID(String name) { return MyOwnSwordmanMod.makeID(name); }
     protected CardStrings cardStrings;
 
     protected boolean upgradesDescription;
@@ -83,6 +83,7 @@ public abstract class BaseCard extends CustomCard {
     {
         this(ID, cost, cardType, target, rarity, color);
         this.upgradesDescription = upgradesDescription;
+        setCustomVar("damage2", VariableType.DAMAGE, 10, 5);
     }
 
     private static String getName(String ID) {
@@ -141,14 +142,12 @@ public abstract class BaseCard extends CustomCard {
         this.setCustomVar(key, base, 0);
     }
     protected final void setCustomVar(String key, int base, int upgrade) {
-        setCustomVarValue(key, base, upgrade);
-
         if (!customVars.containsKey(key)) {
             QuickDynamicVariable var = new QuickDynamicVariable(key);
             customVars.put(key, var);
             BaseMod.addDynamicVariable(var);
-            initializeDescription();
         }
+        cardVariables.put(key, new LocalVarInfo(base, upgrade));
     }
 
     protected enum VariableType {
@@ -160,7 +159,12 @@ public abstract class BaseCard extends CustomCard {
         setCustomVar(key, type, base, 0);
     }
     protected final void setCustomVar(String key, VariableType type, int base, int upgrade) {
-        setCustomVarValue(key, base, upgrade);
+        if (!customVars.containsKey(key)) {
+            QuickDynamicVariable var = new QuickDynamicVariable(key);
+            customVars.put(key, var);
+            BaseMod.addDynamicVariable(var);
+        }
+        cardVariables.put(key, new LocalVarInfo(base, upgrade));
 
         switch (type) {
             case DAMAGE:
@@ -169,13 +173,6 @@ public abstract class BaseCard extends CustomCard {
             case BLOCK:
                 calculateVarAsBlock(key);
                 break;
-        }
-
-        if (!customVars.containsKey(key)) {
-            QuickDynamicVariable var = new QuickDynamicVariable(key);
-            customVars.put(key, var);
-            BaseMod.addDynamicVariable(var);
-            initializeDescription();
         }
     }
     protected final void setCustomVar(String key, VariableType type, int base, BiFunction<AbstractMonster, Integer, Integer> preCalc) {
@@ -188,7 +185,12 @@ public abstract class BaseCard extends CustomCard {
         setCustomVar(key, type, base, 0, preCalc, postCalc);
     }
     protected final void setCustomVar(String key, VariableType type, int base, int upgrade, BiFunction<AbstractMonster, Integer, Integer> preCalc, BiFunction<AbstractMonster, Integer, Integer> postCalc) {
-        setCustomVarValue(key, base, upgrade);
+        if (!customVars.containsKey(key)) {
+            QuickDynamicVariable var = new QuickDynamicVariable(key);
+            customVars.put(key, var);
+            BaseMod.addDynamicVariable(var);
+        }
+        cardVariables.put(key, new LocalVarInfo(base, upgrade));
 
         switch (type) {
             case DAMAGE:
@@ -235,26 +237,6 @@ public abstract class BaseCard extends CustomCard {
                 });
                 break;
         }
-
-        if (!customVars.containsKey(key)) {
-            QuickDynamicVariable var = new QuickDynamicVariable(key);
-            customVars.put(key, var);
-            BaseMod.addDynamicVariable(var);
-            initializeDescription();
-        }
-    }
-
-    private void setCustomVarValue(String key, int base, int upg) {
-        cardVariables.compute(key, (k, old)->{
-            if (old == null) {
-                return new LocalVarInfo(base, upg);
-            }
-            else {
-                old.base = base;
-                old.upgrade = upg;
-                return old;
-            }
-        });
     }
 
     protected final void colorCustomVar(String key, Color normalColor) {
@@ -443,7 +425,7 @@ public abstract class BaseCard extends CustomCard {
             {
                 if (cardStrings.UPGRADE_DESCRIPTION == null)
                 {
-                    BasicMod.logger.error("Card " + cardID + " upgrades description and has null upgrade description.");
+                    MyOwnSwordmanMod.logger.error("Card " + cardID + " upgrades description and has null upgrade description.");
                 }
                 else
                 {
@@ -548,15 +530,6 @@ public abstract class BaseCard extends CustomCard {
         }
 
         super.calculateCardDamage(m);
-    }
-
-    @Override
-    public void resetAttributes() {
-        super.resetAttributes();
-
-        for (LocalVarInfo var : cardVariables.values()) {
-            var.value = var.base;
-        }
     }
 
     private static class QuickDynamicVariable extends DynamicVariable {

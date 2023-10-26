@@ -1,3 +1,7 @@
 # Project exclude paths
 /target/
 /.idea/
+.vscode
+desktop-1.0.jar.src.zip
+desktop-1.0.jar
+desktop-1.0.jar.src

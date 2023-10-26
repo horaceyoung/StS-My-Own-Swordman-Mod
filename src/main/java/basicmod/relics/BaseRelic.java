@@ -7,7 +7,7 @@ import basicmod.util.TextureLoader;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
-import static basicmod.BasicMod.relicPath;
+import static basicmod.MyOwnSwordmanMod.relicPath;
 
 public abstract class BaseRelic extends CustomRelic {
     public AbstractCard.CardColor pool = null;
