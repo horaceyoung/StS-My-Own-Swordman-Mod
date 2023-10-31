@@ -6,16 +6,16 @@
     ]
   },
   "${modID}:AcupressureWeakPower": {
-    "NAME": "Acupressure - Weak",
+    "NAME": "封穴 - 涌泉穴",
     "DESCRIPTIONS": [
-      "Decreases attack damage by #b",
-      ". Each stack decreases attack damage by 2."
+      "减少 #b",
+      "伤害。 每层封穴减少2点伤害。"
     ]
   },
   "${modID}:AcupressureDeathPower": {
-    "NAME": "Acupressure - Death",
+    "NAME": "封穴 - 死穴",
     "DESCRIPTIONS": [
-      "When reaching 10 stack, kills the target instantly."
+      "层数达到10层时立即杀死目标。"
     ]
   }
 }

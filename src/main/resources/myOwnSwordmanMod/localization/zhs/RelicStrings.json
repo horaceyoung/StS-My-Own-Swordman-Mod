@@ -7,10 +7,10 @@
     ]
   },
   "${modID}:TightFittingShoes": {
-    "NAME": "Tight Fitting Shoes",
-    "FLAVOR": "It gets tighter the longer you wear it.",
+    "NAME": "挤脚的鞋",
+    "FLAVOR": "越穿越挤脚",
     "DESCRIPTIONS": [
-      "Whenever you would lose HP fewer or euqal to %d, prevent the damage."
+      "每当你要失去 %d 点生命时, 消除此伤害."
     ]
   }
 }

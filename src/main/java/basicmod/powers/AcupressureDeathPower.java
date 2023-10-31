@@ -15,24 +15,33 @@ public class AcupressureDeathPower extends BasePower {
     public static final String POWER_ID = makeID(NAME);
     private static final AbstractPower.PowerType TYPE = AbstractPower.PowerType.DEBUFF;
     private static final boolean TURN_BASED = true;
-
+    private boolean justApplied = false;
+    
     public AcupressureDeathPower(AbstractCreature owner, int amount) {
         super(POWER_ID, TYPE, TURN_BASED, owner, amount);
+        getUpdatedDescription();
     }
 
     public String getUpdatedDescription() {
-        return this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1];
+        return this.description = DESCRIPTIONS[0];
     }
 
     public void atEndOfRound() {
-        if (!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
-            addToBot((AbstractGameAction) new ReducePowerAction(this.owner, this.owner, this, 1));
+        if (this.justApplied) {
+            this.justApplied = false;
+            return;
+        }
+        if (this.amount == 0) {
+            addToBot((AbstractGameAction) new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
+        } else {
+            addToBot((AbstractGameAction) new ReducePowerAction(this.owner, this.owner, POWER_ID, 1));
         }
     }
 
     public void stackPower(int stackAmount) {
         super.stackPower(stackAmount);
         if (this.amount >= 10) {
+            flash();
             addToTop((AbstractGameAction) new InstantKillAction(this.owner));
             this.amount -= 10;
             if (this.amount <= 0)
