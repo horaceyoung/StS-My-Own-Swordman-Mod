@@ -45,4 +45,8 @@ public class TightFittingShoes extends BaseRelic {
     public void setCounter(int amount){
         this.counter = amount;
     }
+
+    public void addCounter(int amount) {
+        this.counter += amount;
+    }
 }

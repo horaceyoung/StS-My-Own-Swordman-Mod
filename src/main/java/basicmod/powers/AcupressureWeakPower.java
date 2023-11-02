@@ -39,7 +39,7 @@ public class AcupressureWeakPower extends BasePower {
 
     public float atDamageGive(float damage, DamageInfo.DamageType type) {
         if (type == DamageInfo.DamageType.NORMAL) {
-            return damage - this.amount * 2;
+            return damage - this.amount;
         }
         return damage;
     }

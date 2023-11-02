@@ -1,12 +1,7 @@
 {
-  "${modID}:ExampleCard": {
-    "NAME": "Name",
-    "DESCRIPTION": "Description.",
-    "UPGRADE_DESCRIPTION": "This will automatically be used if the card is upgraded. Remove it if unneeded.",
-    "EXTENDED_DESCRIPTION": [
-      "You can put more text in here.",
-      "If you need to use it for stuff.",
-      "Blizzard is a good example for this."
-    ]
+  "${modID}:SunflowerFinger": {
+    "NAME": "Sunflower Finger",
+    "DESCRIPTION": "Deal !D! damage to an enemy and apply 1 random Acupressure to it.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage to an enemy and apply 2 random Acupressure to it."
   }
 }

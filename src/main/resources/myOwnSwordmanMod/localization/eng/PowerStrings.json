@@ -9,13 +9,19 @@
     "NAME": "Acupressure - Weak",
     "DESCRIPTIONS": [
       "Decreases attack damage by #b",
-      ". Each stack decreases attack damage by 2."
+      ". Each stack decreases attack damage by 1."
     ]
   },
   "${modID}:AcupressureDeathPower": {
     "NAME": "Acupressure - Death",
     "DESCRIPTIONS": [
       "When reaching 10 stack, kills the target instantly."
+    ]
+  },
+  "${modID}:AcupressurePainPower": {
+    "NAME": "Acupressure - Pain",
+    "DESCRIPTIONS": [
+      "Damage the target by stack number when ever this status is applied"
     ]
   }
 }

@@ -9,13 +9,19 @@
     "NAME": "封穴 - 涌泉穴",
     "DESCRIPTIONS": [
       "减少 #b",
-      "伤害。 每层封穴减少2点伤害。"
+      "伤害。 每层封穴减少1点伤害。"
     ]
   },
   "${modID}:AcupressureDeathPower": {
     "NAME": "封穴 - 死穴",
     "DESCRIPTIONS": [
       "层数达到10层时立即杀死目标。"
+    ]
+  },
+  "${modID}:AcupressurePainPower": {
+    "NAME": "封穴 - 疼痛穴",
+    "DESCRIPTIONS": [
+      "每当目标获得封穴 - 疼痛穴时，受到等同于封穴层数的伤害。"
     ]
   }
 }
