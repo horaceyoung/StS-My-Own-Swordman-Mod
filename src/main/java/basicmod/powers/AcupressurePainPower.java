@@ -18,6 +18,8 @@ import basicmod.MyOwnSwordmanMod;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import static basicmod.MyOwnSwordmanMod.makeID;
 
 public class AcupressurePainPower extends BasePower {
@@ -29,25 +31,9 @@ public class AcupressurePainPower extends BasePower {
     private static final boolean TURN_BASED = true;
     private boolean justApplied = false;
 
-    private void update() {
-        if (!this.owner.hasPower("Artifact")) {
-            if (!this.owner.hasPower(AcupressurePainPower.POWER_ID)) {
-                logger.error("tHIS OWNER DOESN'T HAVE POWER");
-                flash();
-                addToBot((AbstractGameAction) new LoseHPAction(this.owner, this.source,
-                        this.amount));
-
-            } else {
-                addToBot((AbstractGameAction) new LoseHPAction(this.owner, this.source,
-                        this.owner.getPower(AcupressurePainPower.POWER_ID).amount + this.amount));
-            }
-        }
-    }
-
     public AcupressurePainPower(AbstractCreature owner, int amount) {
         super(POWER_ID, TYPE, TURN_BASED, owner, amount);
         getUpdatedDescription();
-        update();
     }
 
     public String getUpdatedDescription() {

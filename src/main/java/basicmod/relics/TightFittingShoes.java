@@ -3,9 +3,12 @@ package basicmod.relics;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.EscapeAction;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.common.SetMoveAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
@@ -17,11 +20,10 @@ import basicmod.character.ThiefSaint;
 import static basicmod.MyOwnSwordmanMod.makeID;
 
 public class TightFittingShoes extends BaseRelic {
-    public static final String NAME = TightFittingShoes.class.getSimpleName();                                                               // as well as the ID.
+    public static final String NAME = TightFittingShoes.class.getSimpleName(); // as well as the ID.
     public static final String ID = makeID(NAME);
     private static final RelicTier RARITY = RelicTier.STARTER; // The relic's rarity.
     private static final LandingSound SOUND = LandingSound.CLINK; // The sound played when the relic is clicked.
-    
 
     public TightFittingShoes() {
         super(ID, NAME, RARITY, SOUND);
@@ -29,9 +31,13 @@ public class TightFittingShoes extends BaseRelic {
     }
 
     @Override
-    public int onLoseHpLast(int damageAmount) {
-        if (damageAmount <= this.counter) {
+    public int onAttacked(DamageInfo info, int damageAmount) {
+        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS
+                && info.type != DamageInfo.DamageType.THORNS && damageAmount > 1 && damageAmount <= this.counter) {
+
             flash();
+            addToBot(
+                    (AbstractGameAction) new RelicAboveCreatureAction((AbstractCreature) AbstractDungeon.player, this));
             return 0;
         }
         return damageAmount;
@@ -42,7 +48,7 @@ public class TightFittingShoes extends BaseRelic {
         return this.description = String.format(DESCRIPTIONS[0], this.counter);
     }
 
-    public void setCounter(int amount){
+    public void setCounter(int amount) {
         this.counter = amount;
     }
 

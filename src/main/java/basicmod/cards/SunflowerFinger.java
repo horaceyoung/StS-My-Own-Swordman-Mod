@@ -8,6 +8,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+
+import basicmod.actions.TriggerAcupressurePainAction;
 import basicmod.character.ThiefSaint;
 import basicmod.powers.AcupressureDeathPower;
 import basicmod.powers.AcupressurePainPower;
@@ -48,6 +50,7 @@ public class SunflowerFinger extends BaseCard {
                         addToBot(new ApplyPowerAction(m, p,
                                 new AcupressurePainPower(m, ACUPRESSURE_STACK), ACUPRESSURE_STACK,
                                 true, AbstractGameAction.AttackEffect.NONE));
+                        addToBot(new TriggerAcupressurePainAction(m));
                         break;
                     case 2:
                         addToBot(new ApplyPowerAction(m, p,

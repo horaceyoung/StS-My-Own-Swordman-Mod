@@ -34,12 +34,12 @@ public class TrainingLightfootPower extends BasePower {
         return DESCRIPTIONS[0];
     }
 
-    public int onAttacked(DamageInfo info, int damageAmount) {
+    public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
         if (damageAmount > 0) {
             addToTop((AbstractGameAction) new RemoveSpecificPowerAction(this.owner, this.owner, this));
         }
 
-        return damageAmount;
+        return 0;
     }
 
     @Override
